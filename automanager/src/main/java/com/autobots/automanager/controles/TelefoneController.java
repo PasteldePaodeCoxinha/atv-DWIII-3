@@ -1,6 +1,8 @@
 package com.autobots.automanager.controles;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,13 +16,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.autobots.automanager.entidades.Cliente;
+import com.autobots.automanager.entidades.Usuario;
 import com.autobots.automanager.entidades.Telefone;
 import com.autobots.automanager.modelo.AdicionadorLinkTelefone;
 import com.autobots.automanager.modelo.ClienteSelecionador;
 import com.autobots.automanager.modelo.TelefoneAtualizador;
 import com.autobots.automanager.modelo.TelefoneSelecionador;
-import com.autobots.automanager.repositorios.ClienteRepositorio;
+import com.autobots.automanager.repositorios.UsuarioRepositorio;
 import com.autobots.automanager.repositorios.TelefoneRepositorio;
 
 @RestController
@@ -31,7 +33,7 @@ public class TelefoneController {
 	@Autowired
 	private TelefoneSelecionador selecionador;
 	@Autowired
-	private ClienteRepositorio clienteRepositorio;
+	private UsuarioRepositorio clienteRepositorio;
 	@Autowired
 	private ClienteSelecionador clienteSelecionador;
 	@Autowired
@@ -96,12 +98,12 @@ public class TelefoneController {
 	public ResponseEntity<?> excluirTelefone(@RequestBody Telefone exclusao) {
 		try {
 			Telefone telefone = repositorio.getById(exclusao.getId());
-			Cliente cliente = clienteRepositorio.findByTelefones(telefone);
+			Usuario cliente = clienteRepositorio.findByTelefones(telefone);
 			
 			if (telefone.getId() == null || cliente.getId() == null) {
 				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 			} else {
-				cliente.setTelefones(cliente.getTelefones().stream().filter(d -> d.getId() != telefone.getId()).toList());
+				cliente.getTelefones().remove(telefone);
 				repositorio.delete(telefone);
 				return new ResponseEntity<>(HttpStatus.OK);
 			}
@@ -111,15 +113,15 @@ public class TelefoneController {
 	}
 	
 	@GetMapping("/cliente/{id}")
-	public ResponseEntity<List<Telefone>> pegarTelefonesCliente(@PathVariable long id){
-		Cliente cliente = clienteSelecionador.selecionar(clienteRepositorio, id);
+	public ResponseEntity<Set<Telefone>> pegarTelefonesCliente(@PathVariable long id){
+		Usuario cliente = clienteSelecionador.selecionar(clienteRepositorio, id);
 		
 		if (cliente.getId() == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		} else {
-			List<Telefone> telefones = cliente.getTelefones();
-			adicionadorLink.adicionarLink(telefones);
-			return new ResponseEntity<List<Telefone>>(telefones, HttpStatus.FOUND);
+			Set<Telefone> telefones = cliente.getTelefones();
+			adicionadorLink.adicionarLink(new ArrayList<>(telefones));
+			return new ResponseEntity<Set<Telefone>>(telefones, HttpStatus.FOUND);
 		}
 	}
 }

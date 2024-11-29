@@ -1,6 +1,8 @@
 package com.autobots.automanager.controles;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,13 +16,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.autobots.automanager.entidades.Cliente;
+import com.autobots.automanager.entidades.Usuario;
 import com.autobots.automanager.entidades.Documento;
 import com.autobots.automanager.modelo.AdicionadorLinkDocumento;
 import com.autobots.automanager.modelo.ClienteSelecionador;
 import com.autobots.automanager.modelo.DocumentoAtualizador;
 import com.autobots.automanager.modelo.DocumentoSelecionador;
-import com.autobots.automanager.repositorios.ClienteRepositorio;
+import com.autobots.automanager.repositorios.UsuarioRepositorio;
 import com.autobots.automanager.repositorios.DocumentoRepositorio;
 
 @RestController
@@ -31,7 +33,7 @@ public class DocumentoControle {
 	@Autowired
 	private DocumentoSelecionador selecionador;
 	@Autowired
-	private ClienteRepositorio clienteRepositorio;
+	private UsuarioRepositorio clienteRepositorio;
 	@Autowired
 	private ClienteSelecionador clienteSelecionador;
 	@Autowired
@@ -96,12 +98,12 @@ public class DocumentoControle {
 	public ResponseEntity<?> excluirDocumento(@RequestBody Documento exclusao) {
 		try {
 			Documento documento = repositorio.getById(exclusao.getId());
-			Cliente cliente = clienteRepositorio.findByDocumentos(documento);
+			Usuario cliente = clienteRepositorio.findByDocumentos(documento);
 			
 			if (documento.getId() == null || cliente.getId() == null) {
 				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 			} else {
-				cliente.setDocumentos(cliente.getDocumentos().stream().filter(d -> d.getId() != documento.getId()).toList());
+				cliente.getDocumentos().remove(documento);
 				repositorio.delete(documento);
 				return new ResponseEntity<>(HttpStatus.OK);
 			}
@@ -111,15 +113,15 @@ public class DocumentoControle {
 	}
 	
 	@GetMapping("/cliente/{id}")
-	public ResponseEntity<List<Documento>> pegarDocumentosCliente(@PathVariable long id){
-		Cliente cliente = clienteSelecionador.selecionar(clienteRepositorio, id);
+	public ResponseEntity<Set<Documento>> pegarDocumentosCliente(@PathVariable long id){
+		Usuario cliente = clienteSelecionador.selecionar(clienteRepositorio, id);
 		
 		if (cliente.getId() == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		} else {
-			List<Documento> documentos = cliente.getDocumentos();
-			adicionadorLink.adicionarLink(documentos);
-			return new ResponseEntity<List<Documento>>(documentos, HttpStatus.FOUND);
+			Set<Documento> documentos = cliente.getDocumentos();
+			adicionadorLink.adicionarLink(new ArrayList<>(documentos));
+			return new ResponseEntity<Set<Documento>>(documentos, HttpStatus.FOUND);
 		}
 	}
 }

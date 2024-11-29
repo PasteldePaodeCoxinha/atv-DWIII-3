@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.autobots.automanager.entidades.Cliente;
+import com.autobots.automanager.entidades.Usuario;
 import com.autobots.automanager.entidades.Endereco;
 import com.autobots.automanager.modelo.AdicionadorLinkEndereco;
 import com.autobots.automanager.modelo.ClienteSelecionador;
 import com.autobots.automanager.modelo.EnderecoAtualizador;
 import com.autobots.automanager.modelo.EnderecoSelecionador;
-import com.autobots.automanager.repositorios.ClienteRepositorio;
+import com.autobots.automanager.repositorios.UsuarioRepositorio;
 import com.autobots.automanager.repositorios.EnderecoRepositorio;
 
 @RestController
@@ -31,7 +31,7 @@ public class EnderecoController {
 	@Autowired
 	private EnderecoSelecionador selecionador;
 	@Autowired
-	private ClienteRepositorio clienteRepositorio;
+	private UsuarioRepositorio clienteRepositorio;
 	@Autowired
 	private ClienteSelecionador clienteSelecionador;
 	@Autowired
@@ -96,7 +96,7 @@ public class EnderecoController {
 	public ResponseEntity<?> excluirEndereco(@RequestBody Endereco exclusao) {
 		try {
 			Endereco endereco = repositorio.getById(exclusao.getId());
-			Cliente cliente = clienteRepositorio.findByEndereco(endereco);
+			Usuario cliente = clienteRepositorio.findByEndereco(endereco);
 			
 			if (endereco.getId() == null || cliente.getId() == null) {
 				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -112,7 +112,7 @@ public class EnderecoController {
 	
 	@GetMapping("/cliente/{id}")
 	public ResponseEntity<Endereco> pegarEnderecoCliente(@PathVariable long id){
-		Cliente cliente = clienteSelecionador.selecionar(clienteRepositorio, id);
+		Usuario cliente = clienteSelecionador.selecionar(clienteRepositorio, id);
 		
 		if (cliente.getId() == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);

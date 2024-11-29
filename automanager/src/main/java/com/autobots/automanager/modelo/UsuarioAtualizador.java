@@ -1,14 +1,14 @@
 package com.autobots.automanager.modelo;
 
-import com.autobots.automanager.entidades.Cliente;
+import com.autobots.automanager.entidades.Usuario;
 
-public class ClienteAtualizador {
+public class UsuarioAtualizador {
 	private StringVerificadorNulo verificador = new StringVerificadorNulo();
 	private EnderecoAtualizador enderecoAtualizador = new EnderecoAtualizador();
 	private DocumentoAtualizador documentoAtualizador = new DocumentoAtualizador();
 	private TelefoneAtualizador telefoneAtualizador = new TelefoneAtualizador();
 
-	private void atualizarDados(Cliente cliente, Cliente atualizacao) {
+	private void atualizarDados(Usuario cliente, Usuario atualizacao) {
 		if (!verificador.verificar(atualizacao.getNome())) {
 			cliente.setNome(atualizacao.getNome());
 		}
@@ -23,7 +23,7 @@ public class ClienteAtualizador {
 		}
 	}
 
-	public void atualizar(Cliente cliente, Cliente atualizacao) {
+	public void atualizar(Usuario cliente, Usuario atualizacao) {
 		atualizarDados(cliente, atualizacao);
 		enderecoAtualizador.atualizar(cliente.getEndereco(), atualizacao.getEndereco());
 		documentoAtualizador.atualizar(cliente.getDocumentos(), atualizacao.getDocumentos());

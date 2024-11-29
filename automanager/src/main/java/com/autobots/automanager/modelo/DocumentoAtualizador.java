@@ -1,6 +1,7 @@
 package com.autobots.automanager.modelo;
 
 import java.util.List;
+import java.util.Set;
 
 import com.autobots.automanager.entidades.Documento;
 
@@ -9,16 +10,17 @@ public class DocumentoAtualizador {
 
 	public void atualizar(Documento documento, Documento atualizacao) {
 		if (atualizacao != null) {
-			if (!verificador.verificar(atualizacao.getTipo())) {
+			if (atualizacao.getTipo() != null) {
 				documento.setTipo(atualizacao.getTipo());
 			}
+			
 			if (!verificador.verificar(atualizacao.getNumero())) {
 				documento.setNumero(atualizacao.getNumero());
 			}
 		}
 	}
 
-	public void atualizar(List<Documento> documentos, List<Documento> atualizacoes) {
+	public void atualizar(Set<Documento> documentos, Set<Documento> atualizacoes) {
 		for (Documento atualizacao : atualizacoes) {
 			for (Documento documento : documentos) {
 				if (atualizacao.getId() != null) {

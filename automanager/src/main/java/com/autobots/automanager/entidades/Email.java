@@ -1,7 +1,5 @@
 package com.autobots.automanager.entidades;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,25 +8,18 @@ import javax.persistence.Id;
 
 import org.springframework.hateoas.RepresentationModel;
 
-import com.autobots.automanager.enumeracoes.TipoDocumento;
-
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
-public class Documento extends RepresentationModel<Documento> {
+public class Email extends RepresentationModel<Email> {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@Column
-	private TipoDocumento tipo;
-	
-	@Column(unique = true)
-	private String numero;
-	
-	@Column
-	private Date dataEmissao;
+	private String endereco;
 }

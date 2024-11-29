@@ -10,25 +10,35 @@ import javax.persistence.Id;
 
 import org.springframework.hateoas.RepresentationModel;
 
-import com.autobots.automanager.enumeracoes.TipoDocumento;
-
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
-public class Documento extends RepresentationModel<Documento> {
+public class Mercadoria extends RepresentationModel<Mercadoria> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@Column
-	private TipoDocumento tipo;
-	
-	@Column(unique = true)
-	private String numero;
+	private Date validade;
 	
 	@Column
-	private Date dataEmissao;
+	private Date fabricao;
+	
+	@Column
+	private Date cadastro;
+	
+	@Column
+	private String nome;
+	
+	@Column
+	private long quantidade;
+	
+	@Column
+	private double valor;
+	
+	@Column
+	private String descricao;
 }

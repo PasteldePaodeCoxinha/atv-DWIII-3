@@ -14,32 +14,32 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.autobots.automanager.entidades.Cliente;
+import com.autobots.automanager.entidades.Usuario;
 import com.autobots.automanager.modelo.AdicionadorLinkCliente;
-import com.autobots.automanager.modelo.ClienteAtualizador;
+import com.autobots.automanager.modelo.UsuarioAtualizador;
 import com.autobots.automanager.modelo.ClienteSelecionador;
-import com.autobots.automanager.repositorios.ClienteRepositorio;
+import com.autobots.automanager.repositorios.UsuarioRepositorio;
 
 @RestController
-@RequestMapping("/cliente")
-public class ClienteControle {
+@RequestMapping("/usuario")
+public class UsuarioControle {
 	@Autowired
-	private ClienteRepositorio repositorio;
+	private UsuarioRepositorio repositorio;
 	@Autowired
 	private ClienteSelecionador selecionador;
 	@Autowired
 	private AdicionadorLinkCliente adicionadorLink;
 
-	@GetMapping("/cliente/{id}")
-	public ResponseEntity<Cliente> obterCliente(@PathVariable long id) {
+	@GetMapping("/usuario/{id}")
+	public ResponseEntity<Usuario> obterCliente(@PathVariable long id) {
 		try {
-			Cliente cliente = selecionador.selecionar(repositorio, id);
+			Usuario usuario = selecionador.selecionar(repositorio, id);
 			
-			if(cliente == null) {
+			if(usuario == null) {
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			} else {
-				adicionadorLink.adicionarLink(cliente);
-				return new ResponseEntity<Cliente>(cliente, HttpStatus.FOUND);
+				adicionadorLink.adicionarLink(usuario);
+				return new ResponseEntity<Usuario>(usuario, HttpStatus.FOUND);
 			}
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -47,23 +47,23 @@ public class ClienteControle {
 		
 	}
 
-	@GetMapping("/clientes")
-	public ResponseEntity<List<Cliente>> obterClientes() {
-		List<Cliente> clientes = repositorio.findAll();
+	@GetMapping("/usuarios")
+	public ResponseEntity<List<Usuario>> obterClientes() {
+		List<Usuario> usuarios = repositorio.findAll();
 		
-		if(clientes.isEmpty()) {
+		if(usuarios.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		} else {
-			adicionadorLink.adicionarLink(clientes);
-			return new ResponseEntity<List<Cliente>>(clientes, HttpStatus.FOUND);
+			adicionadorLink.adicionarLink(usuarios);
+			return new ResponseEntity<List<Usuario>>(usuarios, HttpStatus.FOUND);
 		}
 	}
 
 	@PostMapping("/cadastro")
-	public ResponseEntity<?> cadastrarCliente(@RequestBody Cliente cliente) {
+	public ResponseEntity<?> cadastrarCliente(@RequestBody Usuario usuario) {
 		try {
-			if (cliente.getId() == null) {
-				repositorio.save(cliente);
+			if (usuario.getId() == null) {
+				repositorio.save(usuario);
 				return new ResponseEntity<>(HttpStatus.CREATED);
 			} else {
 				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -74,16 +74,16 @@ public class ClienteControle {
 	}
 
 	@PutMapping("/atualizar")
-	public ResponseEntity<?> atualizarCliente(@RequestBody Cliente atualizacao) {
+	public ResponseEntity<?> atualizarCliente(@RequestBody Usuario atualizacao) {
 		
 		try {
-			Cliente cliente = repositorio.getById(atualizacao.getId());
-			if(cliente.getId() == null) {
+			Usuario usuario = repositorio.getById(atualizacao.getId());
+			if(usuario.getId() == null) {
 				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 			} else {
-				ClienteAtualizador atualizador = new ClienteAtualizador();
-				atualizador.atualizar(cliente, atualizacao);
-				repositorio.save(cliente);
+				UsuarioAtualizador atualizador = new UsuarioAtualizador();
+				atualizador.atualizar(usuario, atualizacao);
+				repositorio.save(usuario);
 				return new ResponseEntity<>(HttpStatus.OK);
 			}
 		} catch (Exception e) {
@@ -92,14 +92,14 @@ public class ClienteControle {
 	}
 
 	@DeleteMapping("/excluir")
-	public ResponseEntity<?> excluirCliente(@RequestBody Cliente exclusao) {
+	public ResponseEntity<?> excluirCliente(@RequestBody Usuario exclusao) {
 		try {
-			Cliente cliente = repositorio.getById(exclusao.getId());
+			Usuario usuario = repositorio.getById(exclusao.getId());
 			
-			if(cliente.getId() == null) {
+			if(usuario.getId() == null) {
 				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 			} else {
-				repositorio.delete(cliente);
+				repositorio.delete(usuario);
 				return new ResponseEntity<>(HttpStatus.OK);
 			}
 		} catch (Exception e) {

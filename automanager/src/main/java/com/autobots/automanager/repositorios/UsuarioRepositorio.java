@@ -2,14 +2,14 @@ package com.autobots.automanager.repositorios;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.autobots.automanager.entidades.Cliente;
+import com.autobots.automanager.entidades.Usuario;
 import com.autobots.automanager.entidades.Documento;
 import com.autobots.automanager.entidades.Endereco;
 import com.autobots.automanager.entidades.Telefone;
 
-public interface ClienteRepositorio extends JpaRepository<Cliente, Long> {
+public interface UsuarioRepositorio extends JpaRepository<Usuario, Long> {
 	
-	Cliente findByDocumentos(Documento documento);
-	Cliente findByEndereco(Endereco endereco);
-	Cliente findByTelefones(Telefone telefone);
+	Usuario findByDocumentos(Documento documento);
+	Usuario findByEndereco(Endereco endereco);
+	Usuario findByTelefones(Telefone telefone);
 }

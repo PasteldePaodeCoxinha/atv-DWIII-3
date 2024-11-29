@@ -7,10 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
 import org.springframework.hateoas.RepresentationModel;
-
-import com.autobots.automanager.enumeracoes.TipoDocumento;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -18,17 +18,19 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class Documento extends RepresentationModel<Documento> {
+@Inheritance(strategy = InheritanceType.JOINED)
+public class Credencial extends RepresentationModel<Credencial> {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@Column
-	private TipoDocumento tipo;
-	
-	@Column(unique = true)
-	private String numero;
+	private Date criacao;
 	
 	@Column
-	private Date dataEmissao;
+	private Date ultimoAcesso;
+	
+	@Column
+	private boolean inativo;
 }
