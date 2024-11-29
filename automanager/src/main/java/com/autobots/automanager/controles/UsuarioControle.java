@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.autobots.automanager.entidades.Usuario;
-import com.autobots.automanager.modelo.AdicionadorLinkCliente;
-import com.autobots.automanager.modelo.UsuarioAtualizador;
-import com.autobots.automanager.modelo.ClienteSelecionador;
+import com.autobots.automanager.modelo.adicionadoresLink.AdicionadorLinkCliente;
+import com.autobots.automanager.modelo.atualizadores.UsuarioAtualizador;
+import com.autobots.automanager.modelo.selecionadores.UsuarioSelecionador;
 import com.autobots.automanager.repositorios.UsuarioRepositorio;
 
 @RestController
@@ -26,7 +26,7 @@ public class UsuarioControle {
 	@Autowired
 	private UsuarioRepositorio repositorio;
 	@Autowired
-	private ClienteSelecionador selecionador;
+	private UsuarioSelecionador selecionador;
 	@Autowired
 	private AdicionadorLinkCliente adicionadorLink;
 

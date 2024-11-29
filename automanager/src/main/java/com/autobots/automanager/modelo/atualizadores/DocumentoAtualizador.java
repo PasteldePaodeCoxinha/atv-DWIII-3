@@ -1,9 +1,9 @@
-package com.autobots.automanager.modelo;
+package com.autobots.automanager.modelo.atualizadores;
 
-import java.util.List;
 import java.util.Set;
 
 import com.autobots.automanager.entidades.Documento;
+import com.autobots.automanager.modelo.StringVerificadorNulo;
 
 public class DocumentoAtualizador {
 	private StringVerificadorNulo verificador = new StringVerificadorNulo();
@@ -16,6 +16,10 @@ public class DocumentoAtualizador {
 			
 			if (!verificador.verificar(atualizacao.getNumero())) {
 				documento.setNumero(atualizacao.getNumero());
+			}
+			
+			if (atualizacao.getDataEmissao() != null) {
+				documento.setDataEmissao(atualizacao.getDataEmissao());
 			}
 		}
 	}

@@ -18,10 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.autobots.automanager.entidades.Usuario;
 import com.autobots.automanager.entidades.Telefone;
-import com.autobots.automanager.modelo.AdicionadorLinkTelefone;
-import com.autobots.automanager.modelo.ClienteSelecionador;
-import com.autobots.automanager.modelo.TelefoneAtualizador;
-import com.autobots.automanager.modelo.TelefoneSelecionador;
+import com.autobots.automanager.modelo.adicionadoresLink.AdicionadorLinkTelefone;
+import com.autobots.automanager.modelo.atualizadores.TelefoneAtualizador;
+import com.autobots.automanager.modelo.selecionadores.TelefoneSelecionador;
+import com.autobots.automanager.modelo.selecionadores.UsuarioSelecionador;
 import com.autobots.automanager.repositorios.UsuarioRepositorio;
 import com.autobots.automanager.repositorios.TelefoneRepositorio;
 
@@ -35,7 +35,7 @@ public class TelefoneController {
 	@Autowired
 	private UsuarioRepositorio clienteRepositorio;
 	@Autowired
-	private ClienteSelecionador clienteSelecionador;
+	private UsuarioSelecionador clienteSelecionador;
 	@Autowired
 	private AdicionadorLinkTelefone adicionadorLink;
 

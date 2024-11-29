@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.autobots.automanager.entidades.Usuario;
 import com.autobots.automanager.entidades.Endereco;
-import com.autobots.automanager.modelo.AdicionadorLinkEndereco;
-import com.autobots.automanager.modelo.ClienteSelecionador;
-import com.autobots.automanager.modelo.EnderecoAtualizador;
-import com.autobots.automanager.modelo.EnderecoSelecionador;
+import com.autobots.automanager.modelo.adicionadoresLink.AdicionadorLinkEndereco;
+import com.autobots.automanager.modelo.atualizadores.EnderecoAtualizador;
+import com.autobots.automanager.modelo.selecionadores.EnderecoSelecionador;
+import com.autobots.automanager.modelo.selecionadores.UsuarioSelecionador;
 import com.autobots.automanager.repositorios.UsuarioRepositorio;
 import com.autobots.automanager.repositorios.EnderecoRepositorio;
 
@@ -33,7 +33,7 @@ public class EnderecoController {
 	@Autowired
 	private UsuarioRepositorio clienteRepositorio;
 	@Autowired
-	private ClienteSelecionador clienteSelecionador;
+	private UsuarioSelecionador clienteSelecionador;
 	@Autowired
 	private AdicionadorLinkEndereco adicionadorLink;
 
