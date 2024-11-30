@@ -25,7 +25,7 @@ public class Servico extends RepresentationModel<Servico>{
 	private String nome;
 	
 	@Column
-	private double valor;
+	private Double valor;
 	
 	@Column
 	private String descricao;

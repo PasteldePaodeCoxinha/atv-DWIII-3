@@ -34,10 +34,10 @@ public class Mercadoria extends RepresentationModel<Mercadoria> {
 	private String nome;
 	
 	@Column
-	private long quantidade;
+	private Long quantidade;
 	
 	@Column
-	private double valor;
+	private Double valor;
 	
 	@Column
 	private String descricao;

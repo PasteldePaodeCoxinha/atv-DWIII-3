@@ -14,5 +14,5 @@ import lombok.Setter;
 public class CredencialCodigoBarra extends Credencial {
 	
 	@Column(unique = true)
-	private long codigo;
+	private Long codigo;
 }

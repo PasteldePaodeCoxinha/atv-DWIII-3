@@ -147,7 +147,7 @@ public class AutomanagerApplication {
 			rodaLigaLeve.setFabricao(new Date());
 			rodaLigaLeve.setNome("Roda de liga leva modelo toyota etios");
 			rodaLigaLeve.setValidade(new Date());
-			rodaLigaLeve.setQuantidade(30);
+			rodaLigaLeve.setQuantidade((long) 30);
 			rodaLigaLeve.setValor(300.0);
 			rodaLigaLeve.setDescricao("Roda de liga leve original de fábrica da toyta para modelos do tipo hatch");
 
@@ -204,12 +204,12 @@ public class AutomanagerApplication {
 			Servico trocaRodas = new Servico();
 			trocaRodas.setDescricao("Troca das rodas do carro por novas");
 			trocaRodas.setNome("Troca de rodas");
-			trocaRodas.setValor(50);
+			trocaRodas.setValor((double) 50);
 
 			Servico alinhamento = new Servico();
 			alinhamento.setDescricao("Alinhamento das rodas do carro");
 			alinhamento.setNome("Alinhamento de rodas");
-			alinhamento.setValor(50);
+			alinhamento.setValor((double) 50);
 
 			empresa.getServicos().add(trocaRodas);
 			empresa.getServicos().add(alinhamento);
@@ -234,19 +234,19 @@ public class AutomanagerApplication {
 			rodaLigaLeve2.setFabricao(new Date());
 			rodaLigaLeve2.setNome("Roda de liga leva modelo toyota etios");
 			rodaLigaLeve2.setValidade(new Date());
-			rodaLigaLeve2.setQuantidade(30);
+			rodaLigaLeve2.setQuantidade((long) 30);
 			rodaLigaLeve2.setValor(300.0);
 			rodaLigaLeve2.setDescricao("Roda de liga leve original de fábrica da toyta para modelos do tipo hatch");
 			
 			Servico alinhamento2 = new Servico();
 			alinhamento2.setDescricao("Alinhamento das rodas do carro");
 			alinhamento2.setNome("Alinhamento de rodas");
-			alinhamento2.setValor(50);
+			alinhamento2.setValor((double) 50);
 			
 			Servico balanceamento = new Servico();
 			balanceamento.setDescricao("balanceamento das rodas do carro");
 			balanceamento.setNome("balanceamento de rodas");
-			balanceamento.setValor(30);
+			balanceamento.setValor((double) 30);
 			
 			Venda venda2 = new Venda();
 			venda2.setCadastro(new Date());
