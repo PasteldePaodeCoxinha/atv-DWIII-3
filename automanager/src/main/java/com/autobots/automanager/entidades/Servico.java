@@ -21,12 +21,12 @@ public class Servico extends RepresentationModel<Servico>{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column
+	@Column(nullable = false)
 	private String nome;
 	
-	@Column
+	@Column(nullable = false)
 	private Double valor;
 	
-	@Column
+	@Column(nullable = false)
 	private String descricao;
 }

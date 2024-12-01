@@ -32,10 +32,10 @@ public class Venda extends RepresentationModel<Venda>{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column
+	@Column(nullable = false)
 	private Date cadastro;
 	
-	@Column
+	@Column(nullable = false)
 	private String identificacao;
 	
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH }, fetch = FetchType.EAGER)

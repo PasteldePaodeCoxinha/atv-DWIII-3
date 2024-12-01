@@ -20,6 +20,6 @@ public class Email extends RepresentationModel<Email> {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column
+	@Column(nullable = false)
 	private String endereco;
 }

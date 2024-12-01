@@ -28,10 +28,10 @@ public class Empresa extends RepresentationModel<Empresa> {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column
+	@Column(nullable = false)
 	private String razaoSocial;
 	
-	@Column
+	@Column(nullable = false)
 	private String nomeFantasia;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -40,7 +40,7 @@ public class Empresa extends RepresentationModel<Empresa> {
 	@OneToOne(cascade = CascadeType.ALL)
 	private Endereco endereco;
 	
-	@Column
+	@Column(nullable = false)
 	private Date cadastro;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

@@ -34,13 +34,13 @@ public class Veiculo extends RepresentationModel<Veiculo>{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column
+	@Column(nullable = false)
 	private TipoVeiculo tipo;
 	
 	@Column
 	private String modelo;
 	
-	@Column
+	@Column(nullable = false)
 	private String placa;
 	
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH }, fetch = FetchType.EAGER)

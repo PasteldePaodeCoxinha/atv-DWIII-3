@@ -13,6 +13,6 @@ import lombok.Setter;
 @Entity
 public class CredencialCodigoBarra extends Credencial {
 	
-	@Column(unique = true)
+	@Column(unique = true, nullable = false)
 	private Long codigo;
 }

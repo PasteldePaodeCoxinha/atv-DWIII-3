@@ -25,12 +25,12 @@ public class Credencial extends RepresentationModel<Credencial> {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column
+	@Column(nullable = false)
 	private Date criacao;
 	
 	@Column
 	private Date ultimoAcesso;
 	
-	@Column
+	@Column(nullable = false)
 	private boolean inativo;
 }

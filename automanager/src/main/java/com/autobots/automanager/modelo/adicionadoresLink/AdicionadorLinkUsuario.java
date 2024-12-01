@@ -10,7 +10,7 @@ import com.autobots.automanager.controles.UsuarioControle;
 import com.autobots.automanager.entidades.Usuario;
 
 @Component
-public class AdicionadorLinkCliente implements AdicionadorLink<Usuario> {
+public class AdicionadorLinkUsuario implements AdicionadorLink<Usuario> {
 
 	@Override
 	public void adicionarLink(List<Usuario> lista) {
@@ -19,7 +19,7 @@ public class AdicionadorLinkCliente implements AdicionadorLink<Usuario> {
 			Link linkProprio = WebMvcLinkBuilder
 					.linkTo(WebMvcLinkBuilder
 							.methodOn(UsuarioControle.class)
-							.obterCliente(id))
+							.obterUsuario(id))
 					.withSelfRel();
 			cliente.add(linkProprio);
 		}
@@ -30,7 +30,7 @@ public class AdicionadorLinkCliente implements AdicionadorLink<Usuario> {
 		Link linkProprio = WebMvcLinkBuilder
 				.linkTo(WebMvcLinkBuilder
 						.methodOn(UsuarioControle.class)
-						.obterClientes())
+						.obterUsuarios())
 				.withRel("clientes");
 		objeto.add(linkProprio);
 	}

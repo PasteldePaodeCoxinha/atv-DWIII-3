@@ -14,32 +14,32 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.autobots.automanager.entidades.Usuario;
-import com.autobots.automanager.modelo.adicionadoresLink.AdicionadorLinkUsuario;
-import com.autobots.automanager.modelo.atualizadores.UsuarioAtualizador;
-import com.autobots.automanager.modelo.selecionadores.UsuarioSelecionador;
-import com.autobots.automanager.repositorios.UsuarioRepositorio;
+import com.autobots.automanager.entidades.Servico;
+import com.autobots.automanager.modelo.adicionadoresLink.AdicionadorLinkServico;
+import com.autobots.automanager.modelo.atualizadores.ServicoAtualizador;
+import com.autobots.automanager.modelo.selecionadores.ServicoSelecionador;
+import com.autobots.automanager.repositorios.ServicoRepositorio;
 
 @RestController
-@RequestMapping("/usuario")
-public class UsuarioControle {
+@RequestMapping("/servico")
+public class ServicoControle {
 	@Autowired
-	private UsuarioRepositorio repositorio;
+	private ServicoRepositorio repositorio;
 	@Autowired
-	private UsuarioSelecionador selecionador;
+	private ServicoSelecionador selecionador;
 	@Autowired
-	private AdicionadorLinkUsuario adicionadorLink;
+	private AdicionadorLinkServico adicionadorLink;
 
-	@GetMapping("/usuario/{id}")
-	public ResponseEntity<Usuario> obterUsuario(@PathVariable long id) {
+	@GetMapping("/servico/{id}")
+	public ResponseEntity<Servico> obterServico(@PathVariable long id) {
 		try {
-			Usuario usuario = selecionador.selecionar(repositorio, id);
+			Servico servico = selecionador.selecionar(repositorio, id);
 			
-			if(usuario == null) {
+			if(servico == null) {
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			} else {
-				adicionadorLink.adicionarLink(usuario);
-				return new ResponseEntity<Usuario>(usuario, HttpStatus.FOUND);
+				adicionadorLink.adicionarLink(servico);
+				return new ResponseEntity<Servico>(servico, HttpStatus.FOUND);
 			}
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -47,23 +47,23 @@ public class UsuarioControle {
 		
 	}
 
-	@GetMapping("/usuarios")
-	public ResponseEntity<List<Usuario>> obterUsuarios() {
-		List<Usuario> usuarios = repositorio.findAll();
+	@GetMapping("/servicos")
+	public ResponseEntity<List<Servico>> obterServicos() {
+		List<Servico> servicos = repositorio.findAll();
 		
-		if(usuarios.isEmpty()) {
+		if(servicos.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		} else {
-			adicionadorLink.adicionarLink(usuarios);
-			return new ResponseEntity<List<Usuario>>(usuarios, HttpStatus.FOUND);
+			adicionadorLink.adicionarLink(servicos);
+			return new ResponseEntity<List<Servico>>(servicos, HttpStatus.FOUND);
 		}
 	}
 
 	@PostMapping("/cadastro")
-	public ResponseEntity<?> cadastrarUsuario(@RequestBody Usuario usuario) {
+	public ResponseEntity<?> cadastrarServico(@RequestBody Servico servico) {
 		try {
-			if (usuario.getId() == null) {
-				repositorio.save(usuario);
+			if (servico.getId() == null) {
+				repositorio.save(servico);
 				return new ResponseEntity<>(HttpStatus.CREATED);
 			} else {
 				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -74,16 +74,16 @@ public class UsuarioControle {
 	}
 
 	@PutMapping("/atualizar")
-	public ResponseEntity<?> atualizarUsuario(@RequestBody Usuario atualizacao) {
+	public ResponseEntity<?> atualizarServico(@RequestBody Servico atualizacao) {
 		
 		try {
-			Usuario usuario = repositorio.getById(atualizacao.getId());
-			if(usuario.getId() == null) {
+			Servico servico = repositorio.getById(atualizacao.getId());
+			if(servico.getId() == null) {
 				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 			} else {
-				UsuarioAtualizador atualizador = new UsuarioAtualizador();
-				atualizador.atualizar(usuario, atualizacao);
-				repositorio.save(usuario);
+				ServicoAtualizador atualizador = new ServicoAtualizador();
+				atualizador.atualizar(servico, atualizacao);
+				repositorio.save(servico);
 				return new ResponseEntity<>(HttpStatus.OK);
 			}
 		} catch (Exception e) {
@@ -92,14 +92,14 @@ public class UsuarioControle {
 	}
 
 	@DeleteMapping("/excluir")
-	public ResponseEntity<?> excluirUsuario(@RequestBody Usuario exclusao) {
+	public ResponseEntity<?> excluirServico(@RequestBody Servico exclusao) {
 		try {
-			Usuario usuario = repositorio.getById(exclusao.getId());
+			Servico servico = repositorio.getById(exclusao.getId());
 			
-			if(usuario.getId() == null) {
+			if(servico.getId() == null) {
 				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 			} else {
-				repositorio.delete(usuario);
+				repositorio.delete(servico);
 				return new ResponseEntity<>(HttpStatus.OK);
 			}
 		} catch (Exception e) {

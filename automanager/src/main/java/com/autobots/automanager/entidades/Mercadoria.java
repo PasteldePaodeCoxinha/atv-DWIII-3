@@ -21,22 +21,22 @@ public class Mercadoria extends RepresentationModel<Mercadoria> {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column
+	@Column(nullable = false)
 	private Date validade;
 	
-	@Column
+	@Column(nullable = false)
 	private Date fabricao;
 	
-	@Column
+	@Column(nullable = false)
 	private Date cadastro;
 	
-	@Column
+	@Column(nullable = false)
 	private String nome;
 	
 	@Column
 	private Long quantidade;
 	
-	@Column
+	@Column(nullable = false)
 	private Double valor;
 	
 	@Column

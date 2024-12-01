@@ -23,12 +23,12 @@ public class Documento extends RepresentationModel<Documento> {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column
+	@Column(nullable = false)
 	private TipoDocumento tipo;
 	
-	@Column(unique = true)
+	@Column(unique = true, nullable = false)
 	private String numero;
 	
-	@Column
+	@Column(nullable = false)
 	private Date dataEmissao;
 }
