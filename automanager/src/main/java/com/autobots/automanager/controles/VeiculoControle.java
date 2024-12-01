@@ -41,12 +41,16 @@ public class VeiculoControle {
 
 	@GetMapping("/veiculo/{id}")
 	public ResponseEntity<Veiculo> obterVeiculo(@PathVariable long id) {
-		Veiculo veiculo = selecionador.selecionar(repositorio, id);
-		if (veiculo == null) {
+		try {
+			Veiculo veiculo = selecionador.selecionar(repositorio, id);
+			if (veiculo == null) {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			} else {
+				adicionadorLink.adicionarLink(veiculo);
+				return new ResponseEntity<Veiculo>(veiculo, HttpStatus.FOUND);
+			}
+		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		} else {
-			adicionadorLink.adicionarLink(veiculo);
-			return new ResponseEntity<Veiculo>(veiculo, HttpStatus.FOUND);
 		}
 	}
 

@@ -41,12 +41,16 @@ public class EmailControle {
 
 	@GetMapping("/email/{id}")
 	public ResponseEntity<Email> obterEmail(@PathVariable long id) {
-		Email email = selecionador.selecionar(repositorio, id);
-		if (email == null) {
+		try {
+			Email email = selecionador.selecionar(repositorio, id);
+			if (email == null) {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			} else {
+				adicionadorLink.adicionarLink(email);
+				return new ResponseEntity<Email>(email, HttpStatus.FOUND);
+			}
+		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		} else {
-			adicionadorLink.adicionarLink(email);
-			return new ResponseEntity<Email>(email, HttpStatus.FOUND);
 		}
 	}
 

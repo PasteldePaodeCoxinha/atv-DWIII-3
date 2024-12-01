@@ -43,12 +43,16 @@ public class CredencialControle {
 
 	@GetMapping("/credencial/{id}")
 	public ResponseEntity<Credencial> obterCredencial(@PathVariable long id) {
-		Credencial credencial = selecionador.selecionar(repositorio, id);
-		if (credencial == null) {
+		try {
+			Credencial credencial = selecionador.selecionar(repositorio, id);
+			if (credencial == null) {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			} else {
+				adicionadorLink.adicionarLink(credencial);
+				return new ResponseEntity<Credencial>(credencial, HttpStatus.FOUND);
+			}
+		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		} else {
-			adicionadorLink.adicionarLink(credencial);
-			return new ResponseEntity<Credencial>(credencial, HttpStatus.FOUND);
 		}
 	}
 

@@ -41,12 +41,16 @@ public class VendaControle {
 
 	@GetMapping("/venda/{id}")
 	public ResponseEntity<Venda> obterVenda(@PathVariable long id) {
-		Venda venda = selecionador.selecionar(repositorio, id);
-		if (venda == null) {
+		try {
+			Venda venda = selecionador.selecionar(repositorio, id);
+			if (venda == null) {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			} else {
+				adicionadorLink.adicionarLink(venda);
+				return new ResponseEntity<Venda>(venda, HttpStatus.FOUND);
+			}
+		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		} else {
-			adicionadorLink.adicionarLink(venda);
-			return new ResponseEntity<Venda>(venda, HttpStatus.FOUND);
 		}
 	}
 

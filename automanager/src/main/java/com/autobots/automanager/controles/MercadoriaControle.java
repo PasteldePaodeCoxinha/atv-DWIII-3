@@ -41,12 +41,16 @@ public class MercadoriaControle {
 
 	@GetMapping("/mercadoria/{id}")
 	public ResponseEntity<Mercadoria> obterMercadoria(@PathVariable long id) {
-		Mercadoria mercadoria = selecionador.selecionar(repositorio, id);
-		if (mercadoria == null) {
+		try {
+			Mercadoria mercadoria = selecionador.selecionar(repositorio, id);
+			if (mercadoria == null) {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			} else {
+				adicionadorLink.adicionarLink(mercadoria);
+				return new ResponseEntity<Mercadoria>(mercadoria, HttpStatus.FOUND);
+			}
+		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		} else {
-			adicionadorLink.adicionarLink(mercadoria);
-			return new ResponseEntity<Mercadoria>(mercadoria, HttpStatus.FOUND);
 		}
 	}
 
